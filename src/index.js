@@ -16,10 +16,14 @@ const galleryContainer = document.querySelector('.gallery');
     galleryContainer.style.flexWrap = 'wrap';
 const searchButton = document.querySelector('button');
 const loadMoreBtn = document.querySelector('.load-more');
-searchButton.disabled = true;
+ loadMoreBtn.disabled = true;
+loadMoreBtn.style.display = 'none';
 inputKeyWord.addEventListener('input', () => {
   searchButton.disabled = false;
+
 });
+
+
 
 
 const lightbox = () =>
@@ -115,6 +119,24 @@ searchButton.addEventListener('click', e => {
   galleryContainer.innerHTML = '';
   searchImages();
 });
+
+loadMoreBtn.addEventListener('click', e => {
+  e.preventDefault();
+  page++;
+  window.addEventListener('scroll', e => {
+    e.preventDefault();
+    if (
+      window.innerHeight + window.scrollY >=
+      document.body.offsetHeight - 1000
+    ) {
+      page++;
+      searchImages();
+      console.log('load more');
+    }
+  });
+  searchImages();
+});
+
 
 
 
